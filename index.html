@@ -81,13 +81,41 @@
             letter-spacing: 0.05em;
             font-weight: 400;
         }
+
+        /* --- ОБНОВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКОВ РАЗДЕЛОВ (PULSATING PLASMA GLOW) --- */
+        /* Старый эффект с градиентами удален. Применен новый эффект пульсации. */
         h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 3rem; text-align: center;
-            background: linear-gradient(90deg, #fff, var(--purple-primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem; 
+            text-align: center;
             padding: 0 10px;
+            
+            /* Базовый цвет (будет переопределяться анимацией) */
+            color: #ffffff;
+            
+            /* Применение анимации пульсирующей плазмы */
+            animation: plasmaPulse 4s infinite ease-in-out;
         }
+
+        /* Общая анимация пульсации плазмы (используется для H2 и footer H3) */
+        @keyframes plasmaPulse {
+            0%, 100% {
+                /* Спокойное состояние */
+                text-shadow: 
+                    0 0 5px rgba(140, 100, 255, 0.6), /* Фиолетовое ядро */
+                    0 0 15px rgba(140, 100, 255, 0.3); /* Мягкий ореол */
+                color: #e0e0ff; /* Слегка фиолетовый белый */
+            }
+            50% {
+                /* Пик энергии */
+                text-shadow: 
+                    0 0 5px rgba(255, 255, 255, 0.9),  /* Яркое белое ядро */
+                    0 0 20px rgba(140, 100, 255, 0.8), /* Сильный фиолетовый ореол */
+                    0 0 40px rgba(0, 194, 255, 0.5);   /* Широкая синяя аура */
+                color: #ffffff; /* Чистый белый */
+            }
+        }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
         /* --- BUTTONS --- */
@@ -173,23 +201,43 @@
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
 
-        /* --- HERO --- */
+        /* --- HERO & MAIN TITLE --- */
         .hero {
             min-height: 100vh; display: flex; align-items: center;
             justify-content: center; text-align: center; padding-top: 80px;
             padding-bottom: 40px; position: relative;
         }
         .hero-content { max-width: 900px; z-index: 2; width: 100%; }
+        
+        /* ГЛАВНЫЙ ЗАГОЛОВОК H1 */
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 5rem); margin-bottom: 25px; line-height: 1;
-            opacity: 1; word-wrap: break-word; overflow-wrap: break-word; padding: 0 10px;
-            animation: horrorBreath 6s infinite ease-in-out; color: #fff;
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: 25px; 
+            line-height: 1;
+            padding: 0 10px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: #F0F0FF;
+            animation: preservedZoom 6s infinite ease-in-out, electricBreath 5s infinite ease-in-out;
+            position: relative; z-index: 2;
         }
-        @keyframes horrorBreath {
-            0% { text-shadow: 0 0 10px rgba(0,0,0,0.8); transform: scale(1); color: #f5f5f5; }
-            50% { text-shadow: 0 0 40px rgba(140, 100, 255, 0.6), 0 0 80px rgba(140, 100, 255, 0.2); transform: scale(1.02); color: #e0e0e0; letter-spacing: 0.06em; }
-            100% { text-shadow: 0 0 10px rgba(0,0,0,0.8); transform: scale(1); color: #f5f5f5; }
+
+        @keyframes preservedZoom {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
+
+        @keyframes electricBreath {
+            0% { text-shadow: 0 0 10px rgba(140, 100, 255, 0.2), 0 0 20px rgba(140, 100, 255, 0.05); color: #F0F0FF; }
+            30% { text-shadow: 0 0 15px rgba(140, 100, 255, 0.3), 0 0 30px rgba(140, 100, 255, 0.1); }
+            48% { color: #FFFFFF; text-shadow: 0 0 20px rgba(140, 100, 255, 0.5), 0 0 40px rgba(140, 100, 255, 0.2); }
+            50% { color: #fff; text-shadow: 0 0 4px rgba(255, 255, 255, 0.9), -1px -1px 2px rgba(255, 255, 255, 0.8), 1px 1px 2px rgba(255, 255, 255, 0.8), 0 0 25px rgba(140, 100, 255, 0.9), 0 0 50px rgba(140, 100, 255, 0.4); }
+            52% { color: #F8F8FF; text-shadow: 0 0 15px rgba(140, 100, 255, 0.6), 0 0 35px rgba(140, 100, 255, 0.3); }
+            70% { text-shadow: 0 0 12px rgba(140, 100, 255, 0.25), 0 0 25px rgba(140, 100, 255, 0.1); color: #F2F2FF; }
+            100% { text-shadow: 0 0 10px rgba(140, 100, 255, 0.2), 0 0 20px rgba(140, 100, 255, 0.05); color: #F0F0FF; }
+        }
+
         .hero p {
             font-size: clamp(1.1rem, 4vw, 1.3rem); color: var(--text-muted); margin-bottom: 40px;
             animation: fadeUp 1s forwards 0.5s; opacity: 0;
@@ -305,6 +353,18 @@
             border-top: 1px solid var(--glass-border); 
             background: linear-gradient(to top, rgba(10,10,10,1), transparent);
         }
+
+        /* СТИЛЬ ДЛЯ ЗАГОЛОВКА ФУТЕРА (PULSATING PLASMA GLOW) */
+        .footer h3 {
+            color: #ffffff;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            line-height: 1.4;
+            /* Используем ту же анимацию, что и для H2 */
+            animation: plasmaPulse 4s infinite ease-in-out;
+        }
+
         .footer-contacts {
             margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05);
         }
@@ -400,7 +460,7 @@
 
     <section class="hero">
         <div class="container hero-content">
-            <h1>AI CREATIVE STUDIO<br><span style="font-size: 0.5em; color: var(--purple-primary); letter-spacing: 0.2em;">Место, где ваши идеи становятся реальностью</span></h1>
+            <h1>AI CREATIVE STUDIO<br><span style="font-size: 0.5em; color: var(--purple-primary); letter-spacing: 0.2em; text-shadow: none;">Место, где ваши идеи становятся реальностью</span></h1>
             <p>
                 <br>
                 Мы объединяем искусство и искусственный интеллект.
@@ -737,7 +797,7 @@
 
     <footer class="footer">
         <div class="container">
-            <h3>Будем рады помочь оживить ваш проект, оставьте заявку мы с вами свяжемься в ближайшее время</h3>
+            <h3>Будем рады помочь оживить ваш проект, оставьте заявку мы с вами свяжемся в ближайшее время</h3>
             <button class="btn-glow open-modal-btn" style="margin-top: 20px;">Оформить заявку</button>
             
             <div class="footer-contacts">
