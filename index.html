@@ -18,7 +18,7 @@
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             
-            /* GLOBAL PRIMARY (Used for buttons/accents) */
+            /* GLOBAL PRIMARY */
             --purple-primary: #8C64FF;
             --purple-glow: rgba(140, 100, 255, 0.5);
             
@@ -27,22 +27,12 @@
             --font-body: 'Manrope', sans-serif;
         }
 
-        /* --- SECTION SPECIFIC COLORS (BLUE/PURPLE SPECTRUM) --- */
-        /* 1. Video Block - Purple */
+        /* --- SECTION COLORS --- */
         #video { --block-color: #8C64FF; --block-glow: rgba(140, 100, 255, 0.4); }
-        
-        /* 2. Art Block - Violet/Pinkish */
         #art { --block-color: #D464FF; --block-glow: rgba(212, 100, 255, 0.4); }
-        
-        /* 3. Cards Block - Indigo/Periwinkle */
         #cards { --block-color: #6475FF; --block-glow: rgba(100, 117, 255, 0.4); }
-        
-        /* 4. Bots Block - Electric Blue/Cyan tone */
         #bots { --block-color: #00C2FF; --block-glow: rgba(0, 194, 255, 0.4); }
-        
-        /* 5. Landings Block - Royal Blue */
         #landings { --block-color: #4D4DFF; --block-glow: rgba(77, 77, 255, 0.4); }
-
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -160,7 +150,7 @@
         .carousel-container {
             position: relative; width: 100%; max-width: 600px; margin: 0 auto;
             border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; 
-            border: 2px solid var(--block-color, #8C64FF); /* Uses block color */
+            border: 2px solid var(--block-color, #8C64FF); 
             animation: neonBreath 4s infinite ease-in-out; background: #000;
         }
         @keyframes neonBreath {
@@ -216,13 +206,26 @@
         }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- REC DOT ANIMATION --- */
+        .rec-dot {
+            display: inline-block; width: 12px; height: 12px;
+            background-color: #ff0000; border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 5px #ff0000;
+            animation: blinkRed 1.5s infinite;
+        }
+        @keyframes blinkRed {
+            0% { opacity: 1; box-shadow: 0 0 5px #ff0000; }
+            50% { opacity: 0.3; box-shadow: 0 0 0 #ff0000; }
+            100% { opacity: 1; box-shadow: 0 0 5px #ff0000; }
+        }
+
         /* --- CARDS & GRIDS --- */
         section { padding: 80px 0; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .grid-1-wide { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; }
 
-        /* --- UPDATED CARD STYLES --- */
         .premium-card {
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -230,37 +233,23 @@
             backdrop-filter: blur(20px); position: relative; overflow: hidden;
             transition: transform 0.4s ease;
             height: 100%; display: flex; flex-direction: column; justify-content: start;
-            /* Synchronized Breathing Animation */
             animation: breathingGlow 4s infinite ease-in-out;
         }
-        
-        .premium-card:hover { 
-            transform: translateY(-7px); 
-            border-color: var(--block-color, #8C64FF); /* Highlight on hover with specific block color */
-        }
+        .premium-card:hover { transform: translateY(-7px); border-color: var(--block-color, #8C64FF); }
 
-        /* The Animation that uses the CSS Variable */
         @keyframes breathingGlow {
-            0%, 100% { 
-                border-color: rgba(255, 255, 255, 0.08); 
-                box-shadow: 0 0 0 rgba(0,0,0,0); 
-            }
-            50% { 
-                border-color: var(--block-color, #8C64FF); 
-                box-shadow: 0 0 25px var(--block-glow, rgba(140,100,255,0.2)); 
-            }
+            0%, 100% { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 rgba(0,0,0,0); }
+            50% { border-color: var(--block-color, #8C64FF); box-shadow: 0 0 25px var(--block-glow, rgba(140,100,255,0.2)); }
         }
 
-        /* Highlight Card (Same Logic) */
+        /* Highlight Card */
         .highlight-card {
             background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(30, 30, 30, 0.7));
             border: 1px solid var(--block-color, #8C64FF);
             padding: 40px; border-radius: 20px;
             position: relative; overflow: hidden;
             text-align: center;
-            height: 100%;
-            display: flex; flex-direction: column; justify-content: center;
-            /* Synchronized Animation */
+            height: 100%; display: flex; flex-direction: column; justify-content: center;
             animation: breathingGlow 4s infinite ease-in-out;
         }
         .highlight-card::before {
@@ -280,15 +269,8 @@
         .info-box-frame strong { color: white; display: block; margin-bottom: 5px; font-size: 1.1rem; }
 
         /* Custom List */
-        .custom-list li {
-            position: relative; padding-left: 25px; margin-bottom: 12px;
-            color: var(--text-muted); font-size: 0.95rem; text-align: left;
-        }
-        .custom-list li::before { 
-            content: '✦'; 
-            position: absolute; left: 0; top: 0; 
-            color: var(--block-color, #8C64FF); /* Bullets match block color */
-        }
+        .custom-list li { position: relative; padding-left: 25px; margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; text-align: left; }
+        .custom-list li::before { content: '✦'; position: absolute; left: 0; top: 0; color: var(--block-color, #8C64FF); }
 
         /* Accordion */
         details.glass-accordion {
@@ -296,26 +278,16 @@
             border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden;
             backdrop-filter: blur(10px); transition: all 0.3s ease;
         }
-        details.glass-accordion[open] { 
-            border-color: var(--block-color, #8C64FF); 
-            box-shadow: 0 0 20px var(--block-glow, rgba(140,100,255,0.2)); 
-        }
+        details.glass-accordion[open] { border-color: var(--block-color, #8C64FF); box-shadow: 0 0 20px var(--block-glow, rgba(140,100,255,0.2)); }
         details.glass-accordion summary {
             padding: 20px 25px; cursor: pointer; font-family: var(--font-head);
             font-size: 1.2rem; color: white; display: flex; justify-content: space-between;
             align-items: center; list-style: none;
         }
         details.glass-accordion summary::-webkit-details-marker { display: none; }
-        details.glass-accordion summary::after {
-            content: '+'; font-size: 1.5rem; 
-            color: var(--block-color, #8C64FF); 
-            transition: 0.3s;
-        }
+        details.glass-accordion summary::after { content: '+'; font-size: 1.5rem; color: var(--block-color, #8C64FF); transition: 0.3s; }
         details.glass-accordion[open] summary::after { transform: rotate(45deg); }
-        .accordion-content {
-            padding: 25px; border-top: 1px solid var(--glass-border);
-            color: var(--text-muted); line-height: 1.8;
-        }
+        .accordion-content { padding: 25px; border-top: 1px solid var(--glass-border); color: var(--text-muted); line-height: 1.8; }
         .accordion-content p { margin-bottom: 15px; }
 
         /* Media Containers */
@@ -324,9 +296,7 @@
             position: relative; width: 100%;
         }
         .media-box.video-wrapper { padding-bottom: 56.25%; height: 0; }
-        .media-box iframe, .media-box img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-        }
+        .media-box iframe, .media-box img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .media-box img { position: relative; height: auto; }
 
         /* --- FOOTER & MODAL --- */
@@ -336,9 +306,7 @@
             background: linear-gradient(to top, rgba(10,10,10,1), transparent);
         }
         .footer-contacts {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05);
         }
         .footer-contacts h4 { color: white; margin-bottom: 20px; font-size: 1.2rem; }
         .phone-link { 
@@ -358,12 +326,9 @@
         .modal-content {
             background: #0a0a0a; border: 1px solid var(--purple-primary);
             width: 95%; max-width: 600px; 
-            max-height: 90vh; /* Limits height */
-            overflow-y: auto; /* Enables scroll */
-            padding: 20px;
-            border-radius: 12px; position: relative;
-            box-shadow: 0 0 50px rgba(140,100,255,0.2);
-            padding-top: 40px; 
+            max-height: 90vh; overflow-y: auto;
+            padding: 20px; border-radius: 12px; position: relative;
+            box-shadow: 0 0 50px rgba(140,100,255,0.2); padding-top: 40px; 
         }
         
         .modal-content::-webkit-scrollbar { width: 8px; }
@@ -391,10 +356,8 @@
             .nav-cta-desktop { display: none; }
             .mobile-only-btn { display: block; width: 80%; margin: 0 auto; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
-            
             .modal-content {
-                width: 100%; height: 100%; max-height: 100%; max-width: 100%; 
-                border-radius: 0; border: none;
+                width: 100%; height: 100%; max-height: 100%; max-width: 100%; border-radius: 0; border: none;
             }
         }
     </style>
@@ -473,17 +436,38 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="grid-2" style="margin-top: 40px;">
                 <div class="media-box">
                     <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-s2ZS/mZmwzMNdhTccfJ3MXk7Qpe/generated_image_a0dd045b-9902-4b1f-800e-08d8b5c0be2a.png?a=2bFXn4UifWgpPwaEcD8neK" alt="AI Video Art">
                 </div>
                 <div>
-                    <h3 style="margin-bottom: 10px; color: white;">Пример видео</h3>
+                    <h3 style="margin-bottom: 10px; color: white; display:flex; align-items:center;">
+                        <span class="rec-dot"></span>
+                        Пример видео
+                    </h3>
                     <div class="media-box video-wrapper">
                         <iframe src="https://drive.google.com/file/d/1IkE_xSs4HJyKseR1KXnuUzM9_G_EDpCI/preview" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <p style="
+                    display: inline-block;
+                    font-size: 1.2rem;
+                    color: #fff;
+                    font-weight: 500;
+                    padding: 20px 30px;
+                    border: 1px solid var(--block-color);
+                    border-radius: 12px;
+                    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(140,100,255,0.1));
+                    box-shadow: 0 0 20px rgba(140,100,255,0.2);
+                ">
+                    Пишите ваш запрос — подберу идеальное решение под любую идею или праздник
+                </p>
+            </div>
+
         </div>
     </section>
 
@@ -496,11 +480,25 @@
                     <p>Превратите ваши привычные фотографии в настоящие произведения цифрового искусства.</p>
                 </div>
             </details>
-            <div class="grid-3">
-                <div class="premium-card"><h3 class="card-title">Стилизация</h3><p class="card-desc">От масляной живописи до киберпанка.</p></div>
-                <div class="premium-card"><h3 class="card-title">Высокое Качество</h3><p class="card-desc">Идеально для печати на холсте (4K/8K).</p></div>
-                <div class="premium-card"><h3 class="card-title">Уникальность</h3><p class="card-desc">Единственный в своем роде экземпляр.</p></div>
+            
+            <div class="grid-2">
+                <div class="premium-card">
+                    <h3 class="card-title">Картина с QR-кодом</h3>
+                    <p class="card-desc">На холст можно добавить аккуратный QR-код, который открывает:</p>
+                    <ul class="custom-list">
+                        <li>Ваше видео-поздравление</li>
+                        <li>Архив с фотографиями</li>
+                        <li>Ролик, созданный под ваше мероприятие</li>
+                        <li>Аудио поздравление</li>
+                        <li>Любое цифровое вложение</li>
+                    </ul>
+                </div>
+                <div class="premium-card">
+                    <h3 class="card-title">Печать на холсте</h3>
+                    <p class="card-desc">Готовые работы печатаются на качественном холсте, который сохраняет глубину цвета и детализацию. Картина выглядит дорого, аккуратно и готова к торжественному вручению. Идеально для печати на холсте (4K/8K).</p>
+                </div>
             </div>
+
             <div class="grid-2" style="margin-top: 40px; align-items: center;">
                 <div class="carousel-container">
                     <button class="carousel-btn prev" id="prevBtn">❮</button>
@@ -690,8 +688,8 @@
                             <li>Создание уникального QR-кода</li>
                         </ul>
                          <p style="flex: 1; min-width: 250px; font-size: 0.95rem; color: white;">
-                            Визитка превращается в активный инструмент продаж: она ведёт клиента прямо к действию — заявке или тесту.
-                            <br><span style="color: var(--purple-primary);">Это ваш цифровой сотрудник, работающий каждый день.</span>
+                            
+                            <br><span style="color: var(--purple-primary);"></span>
                         </p>
                     </div>
                 </div>
@@ -740,7 +738,7 @@
     <footer class="footer">
         <div class="container">
             <h3>ГОТОВЫ К БУДУЩЕМУ?</h3>
-            <button class="btn-glow open-modal-btn" style="margin-top: 20px;">Оформить заявку</button>
+            <button class="btn-glow open-modal-btn" style="margin-top: 20px;">СВЯЗАТЬСЯ С НАМИ</button>
             
             <div class="footer-contacts">
                 <h4>КОНТАКТЫ</h4>
@@ -801,8 +799,6 @@
             const navMenu = document.getElementById('navMenu');
             const navLinks = document.querySelectorAll('.nav-link');
             
-            // --- FIX FOR NAVIGATION ---
-            // Manual smooth scroll to fix potential anchor issues
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -811,7 +807,7 @@
                     const targetSection = document.getElementById(targetId);
                     if (targetSection) {
                         window.scrollTo({
-                            top: targetSection.offsetTop - 80, // -80px for header offset
+                            top: targetSection.offsetTop - 80, 
                             behavior: 'smooth'
                         });
                     }
@@ -840,7 +836,6 @@
                 document.body.style.overflow = '';
             }});
 
-            // Carousel Logic
             const track = document.getElementById('track');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
