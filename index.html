@@ -17,13 +17,32 @@
             --text-muted: #A0A0A0;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
+            
+            /* GLOBAL PRIMARY (Used for buttons/accents) */
             --purple-primary: #8C64FF;
             --purple-glow: rgba(140, 100, 255, 0.5);
-            --accent-green: #00FF94;
-            --telegram-blue: #2AABEE; /* Цвет телеграма */
+            
+            --telegram-blue: #2AABEE;
             --font-head: 'Oswald', sans-serif;
             --font-body: 'Manrope', sans-serif;
         }
+
+        /* --- SECTION SPECIFIC COLORS (BLUE/PURPLE SPECTRUM) --- */
+        /* 1. Video Block - Purple */
+        #video { --block-color: #8C64FF; --block-glow: rgba(140, 100, 255, 0.4); }
+        
+        /* 2. Art Block - Violet/Pinkish */
+        #art { --block-color: #D464FF; --block-glow: rgba(212, 100, 255, 0.4); }
+        
+        /* 3. Cards Block - Indigo/Periwinkle */
+        #cards { --block-color: #6475FF; --block-glow: rgba(100, 117, 255, 0.4); }
+        
+        /* 4. Bots Block - Electric Blue/Cyan tone */
+        #bots { --block-color: #00C2FF; --block-glow: rgba(0, 194, 255, 0.4); }
+        
+        /* 5. Landings Block - Royal Blue */
+        #landings { --block-color: #4D4DFF; --block-glow: rgba(77, 77, 255, 0.4); }
+
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -75,7 +94,7 @@
         h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 3rem; text-align: center;
-            background: linear-gradient(90deg, #fff, #8C64FF);
+            background: linear-gradient(90deg, #fff, var(--purple-primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             padding: 0 10px;
         }
@@ -97,7 +116,6 @@
             box-shadow: 0 0 20px rgba(140, 100, 255, 0.4); border-color: var(--purple-primary);
         }
 
-        /* Telegram Button Style */
         .btn-telegram {
             background: rgba(42, 171, 238, 0.1);
             border-color: var(--telegram-blue);
@@ -142,12 +160,12 @@
         .carousel-container {
             position: relative; width: 100%; max-width: 600px; margin: 0 auto;
             border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; 
-            border: 2px solid rgba(140, 100, 255, 0.3);
+            border: 2px solid var(--block-color, #8C64FF); /* Uses block color */
             animation: neonBreath 4s infinite ease-in-out; background: #000;
         }
         @keyframes neonBreath {
             0% { box-shadow: 0 0 15px rgba(140, 100, 255, 0.2); border-color: rgba(140, 100, 255, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(140, 100, 255, 0.6); border-color: #8C64FF; }
+            50% { box-shadow: 0 0 40px rgba(140, 100, 255, 0.6); border-color: var(--block-color, #8C64FF); }
             100% { box-shadow: 0 0 15px rgba(140, 100, 255, 0.2); border-color: rgba(140, 100, 255, 0.3); }
         }
         .carousel-track { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
@@ -204,6 +222,7 @@
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .grid-1-wide { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; }
 
+        /* --- UPDATED CARD STYLES --- */
         .premium-card {
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -211,23 +230,42 @@
             backdrop-filter: blur(20px); position: relative; overflow: hidden;
             transition: transform 0.4s ease;
             height: 100%; display: flex; flex-direction: column; justify-content: start;
+            /* Synchronized Breathing Animation */
+            animation: breathingGlow 4s infinite ease-in-out;
         }
-        .premium-card:hover { transform: translateY(-7px); border-color: var(--purple-primary); }
+        
+        .premium-card:hover { 
+            transform: translateY(-7px); 
+            border-color: var(--block-color, #8C64FF); /* Highlight on hover with specific block color */
+        }
 
-        /* Highlight Card */
+        /* The Animation that uses the CSS Variable */
+        @keyframes breathingGlow {
+            0%, 100% { 
+                border-color: rgba(255, 255, 255, 0.08); 
+                box-shadow: 0 0 0 rgba(0,0,0,0); 
+            }
+            50% { 
+                border-color: var(--block-color, #8C64FF); 
+                box-shadow: 0 0 25px var(--block-glow, rgba(140,100,255,0.2)); 
+            }
+        }
+
+        /* Highlight Card (Same Logic) */
         .highlight-card {
             background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(30, 30, 30, 0.7));
-            border: 1px solid var(--purple-primary);
-            box-shadow: 0 0 30px rgba(140, 100, 255, 0.15);
+            border: 1px solid var(--block-color, #8C64FF);
             padding: 40px; border-radius: 20px;
             position: relative; overflow: hidden;
             text-align: center;
             height: 100%;
             display: flex; flex-direction: column; justify-content: center;
+            /* Synchronized Animation */
+            animation: breathingGlow 4s infinite ease-in-out;
         }
         .highlight-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--purple-primary), #fff);
+            background: linear-gradient(90deg, var(--block-color, #8C64FF), #fff);
         }
         .highlight-card h3 { font-size: 2rem; color: white; margin-bottom: 20px; }
         
@@ -241,19 +279,16 @@
         }
         .info-box-frame strong { color: white; display: block; margin-bottom: 5px; font-size: 1.1rem; }
 
-        .pulse-border { animation: purpleBorderPulse 8s infinite ease-in-out; }
-        @keyframes purpleBorderPulse {
-            0% { border-color: rgba(140, 100, 255, 0.1); box-shadow: 0 0 0 rgba(140, 100, 255, 0); }
-            50% { border-color: #8C64FF; box-shadow: 0 0 25px rgba(140, 100, 255, 0.3); }
-            100% { border-color: rgba(140, 100, 255, 0.1); box-shadow: 0 0 0 rgba(140, 100, 255, 0); }
-        }
-
         /* Custom List */
         .custom-list li {
             position: relative; padding-left: 25px; margin-bottom: 12px;
             color: var(--text-muted); font-size: 0.95rem; text-align: left;
         }
-        .custom-list li::before { content: '✦'; position: absolute; left: 0; top: 0; color: var(--purple-primary); }
+        .custom-list li::before { 
+            content: '✦'; 
+            position: absolute; left: 0; top: 0; 
+            color: var(--block-color, #8C64FF); /* Bullets match block color */
+        }
 
         /* Accordion */
         details.glass-accordion {
@@ -261,7 +296,10 @@
             border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden;
             backdrop-filter: blur(10px); transition: all 0.3s ease;
         }
-        details.glass-accordion[open] { border-color: var(--purple-primary); box-shadow: 0 0 20px rgba(140,100,255,0.2); }
+        details.glass-accordion[open] { 
+            border-color: var(--block-color, #8C64FF); 
+            box-shadow: 0 0 20px var(--block-glow, rgba(140,100,255,0.2)); 
+        }
         details.glass-accordion summary {
             padding: 20px 25px; cursor: pointer; font-family: var(--font-head);
             font-size: 1.2rem; color: white; display: flex; justify-content: space-between;
@@ -269,7 +307,9 @@
         }
         details.glass-accordion summary::-webkit-details-marker { display: none; }
         details.glass-accordion summary::after {
-            content: '+'; font-size: 1.5rem; color: var(--purple-primary); transition: 0.3s;
+            content: '+'; font-size: 1.5rem; 
+            color: var(--block-color, #8C64FF); 
+            transition: 0.3s;
         }
         details.glass-accordion[open] summary::after { transform: rotate(45deg); }
         .accordion-content {
@@ -417,7 +457,7 @@
                 </div>
             </details>
             <div class="grid-2">
-                <div class="premium-card pulse-border">
+                <div class="premium-card">
                     <h3 class="card-title">Оживление & Сцены</h3>
                     <ul class="custom-list">
                         <li>📸 Оживить ваши фотографии — сделать анимацию лица или добавить движения.</li>
@@ -431,9 +471,6 @@
                         <li>🎙️ Записать профессиональную озвучку или клонировать ваш голос.</li>
                         <li>🎼 Создать авторскую песню.</li>
                     </ul>
-                </div>
-                <div class="premium-card" style="justify-content: center; align-items: center; text-align: center; border-color: var(--purple-primary);">
-                    <button class="btn-glow open-modal-btn">Оставить запрос</button>
                 </div>
             </div>
             <div class="grid-2" style="margin-top: 40px;">
@@ -460,7 +497,7 @@
                 </div>
             </details>
             <div class="grid-3">
-                <div class="premium-card pulse-border"><h3 class="card-title">Стилизация</h3><p class="card-desc">От масляной живописи до киберпанка.</p></div>
+                <div class="premium-card"><h3 class="card-title">Стилизация</h3><p class="card-desc">От масляной живописи до киберпанка.</p></div>
                 <div class="premium-card"><h3 class="card-title">Высокое Качество</h3><p class="card-desc">Идеально для печати на холсте (4K/8K).</p></div>
                 <div class="premium-card"><h3 class="card-title">Уникальность</h3><p class="card-desc">Единственный в своем роде экземпляр.</p></div>
             </div>
@@ -496,7 +533,7 @@
             </details>
 
             <div class="grid-3">
-                <div class="premium-card pulse-border">
+                <div class="premium-card">
                     <h3 class="card-title">Сторона А: Лендинг</h3>
                     <p class="card-desc">QR-код ведёт на мини-сайт с полным описанием:</p>
                     <ul class="custom-list">
@@ -552,7 +589,7 @@
             </details>
 
             <div class="grid-3">
-                <div class="premium-card pulse-border">
+                <div class="premium-card">
                     <h3 class="card-title">Функционал</h3>
                     <p class="card-desc">Что можно реализовать:</p>
                     <ul class="custom-list">
@@ -606,7 +643,7 @@
             <h2>Создание лэндинг сайтов</h2>
 
             <div class="grid-2">
-                <div class="premium-card pulse-border">
+                <div class="premium-card">
                     <h3 class="card-title">Реклама услуг и мероприятий</h3>
                     <p class="card-desc">Идеально для запусков, акций, сбора лидов.</p>
                     <ul class="custom-list">
@@ -709,7 +746,7 @@
                 <h4>КОНТАКТЫ</h4>
                 <a href="tel:+77075016333" class="phone-link">8707 50 16 333</a>
                 
-                <a href="https://t.me/dmitriyostrovskiy1987" target="_blank" class="btn-glow btn-telegram">
+                <a href="https://t.me/dmitriuostrovskiy1987" target="_blank" class="btn-glow btn-telegram">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.657 8.397C17.482 10.315 16.712 14.869 16.321 16.96C16.156 17.846 15.829 18.143 15.513 18.171C14.826 18.232 14.304 17.717 13.639 17.28C12.597 16.596 12.008 16.17 10.998 15.503C9.831 14.734 10.587 14.311 11.252 13.62C11.426 13.439 14.437 10.697 14.495 10.449C14.503 10.418 14.51 10.302 14.441 10.241C14.373 10.18 14.272 10.201 14.199 10.217C14.095 10.24 12.445 11.332 9.25 13.49C8.781 13.811 8.357 13.968 7.976 13.959C7.556 13.95 6.749 13.722 6.149 13.527C5.413 13.287 4.827 13.161 4.878 12.754C4.904 12.542 5.196 12.325 5.753 12.102C8.384 10.875 10.138 10.115 11.015 9.821C13.518 8.981 14.038 8.835 14.377 8.835C14.452 8.835 14.619 8.853 14.727 8.941C14.818 9.015 14.843 9.138 14.847 9.224C14.847 9.224 14.852 9.309 14.848 9.351L17.657 8.397Z" fill="white"/>
                     </svg>
