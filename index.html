@@ -210,6 +210,8 @@
             padding: 40px; border-radius: 20px;
             position: relative; overflow: hidden;
             text-align: center;
+            height: 100%; /* Ensure it matches image height */
+            display: flex; flex-direction: column; justify-content: center;
         }
         .highlight-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
@@ -631,20 +633,21 @@
                 </div>
             </div>
 
-            <div class="grid-1-wide">
-                <div class="highlight-card">
+            <div class="grid-2" style="margin-top: 30px; align-items: stretch;">
+                
+                <div class="highlight-card" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
                     <h3>🚀 Быстрота создания и запуска</h3>
-                    <p style="color: #e0e0e0; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <p style="color: #e0e0e0; margin-bottom: 20px;">
                         Создание такой страницы занимает значительно меньше времени, чем разработка полноценного сайта. 
                         Не требуется сложная структура и месяцы ожидания — вы быстрее выходите в рекламу.
                     </p>
                     
-                    <div style="text-align: left; max-width: 700px; margin: 0 auto;">
-                        <h4 style="color: white; margin-bottom: 10px; text-align: center;">🧩 Простота дальнейшего управления</h4>
-                        <p style="color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+                    <div style="text-align: center;">
+                        <h4 style="color: white; margin-bottom: 10px;">🧩 Простота дальнейшего управления</h4>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">
                             После завершения проекта вы сможете самостоятельно менять тексты и фото без разработчиков.
                         </p>
-                        <ul class="custom-list" style="display: inline-block;">
+                        <ul class="custom-list" style="display: inline-block; text-align: left;">
                              <li>Менять тексты и обновлять изображения</li>
                              <li>Редактировать блоки и актуализировать информацию</li>
                              <li>Это делается бесплатно (кроме водяных знаков платформы)</li>
@@ -655,16 +658,17 @@
                         🎯 Вы получаете гибкий инструмент, который не привязывает вас к постоянным доработкам.
                     </p>
                 </div>
+
+                <div class="media-box" style="margin-top: 0; height: 100%;">
+                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-dBjQ/u6SmnQWu3UuZD2oGxjbYYa/generated_image_6b7ccad7-d5ce-42cd-9668-1e60a29717b1_cleanup.png?a=8XWwq8Eoc16GAknkfm9Cd6" alt="Landing Page Example" style="height: 100%; object-fit: cover;">
+                </div>
+
             </div>
 
             <div class="info-box-frame">
                 <strong>ВАЖНО:</strong>
                 Все проекты создаются в удобном пространстве, где мы обучаем вас как правильно составить ТЗ или выполнять работу по нашему шаблону.
             </div>
-
-            <div class="media-box" style="margin-top: 40px;">
-                <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-dBjQ/u6SmnQWu3UuZD2oGxjbYYa/generated_image_6b7ccad7-d5ce-42cd-9668-1e60a29717b1_cleanup.png?a=8XWwq8Eoc16GAknkfm9Cd6" alt="Landing Page Example">
-             </div>
 
         </div>
     </section>
