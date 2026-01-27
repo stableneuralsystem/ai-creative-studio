@@ -19,7 +19,8 @@
             --glass-border: rgba(255, 255, 255, 0.08);
             --purple-primary: #8C64FF;
             --purple-glow: rgba(140, 100, 255, 0.5);
-            --accent-green: #00FF94; /* Новый цвет для выделения */
+            --accent-green: #00FF94;
+            --telegram-blue: #2AABEE; /* Цвет телеграма */
             --font-head: 'Oswald', sans-serif;
             --font-body: 'Manrope', sans-serif;
         }
@@ -94,6 +95,17 @@
         .btn-glow:hover {
             background: rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 20px rgba(140, 100, 255, 0.4); border-color: var(--purple-primary);
+        }
+
+        /* Telegram Button Style */
+        .btn-telegram {
+            background: rgba(42, 171, 238, 0.1);
+            border-color: var(--telegram-blue);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-telegram:hover {
+            background: var(--telegram-blue);
+            box-shadow: 0 0 30px rgba(42, 171, 238, 0.4);
         }
 
         /* --- HEADER & LOGO --- */
@@ -202,7 +214,7 @@
         }
         .premium-card:hover { transform: translateY(-7px); border-color: var(--purple-primary); }
 
-        /* NEW: Highlight Card (Advert Style) */
+        /* Highlight Card */
         .highlight-card {
             background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(30, 30, 30, 0.7));
             border: 1px solid var(--purple-primary);
@@ -210,7 +222,7 @@
             padding: 40px; border-radius: 20px;
             position: relative; overflow: hidden;
             text-align: center;
-            height: 100%; /* Ensure it matches image height */
+            height: 100%;
             display: flex; flex-direction: column; justify-content: center;
         }
         .highlight-card::before {
@@ -219,7 +231,7 @@
         }
         .highlight-card h3 { font-size: 2rem; color: white; margin-bottom: 20px; }
         
-        /* NEW: Info Box (Frame) */
+        /* Info Box */
         .info-box-frame {
             border: 1px dashed rgba(255, 255, 255, 0.3);
             border-radius: 12px; padding: 20px; margin-top: 40px;
@@ -278,7 +290,22 @@
         .media-box img { position: relative; height: auto; }
 
         /* --- FOOTER & MODAL --- */
-        .footer { text-align: center; padding: 60px 0; border-top: 1px solid var(--glass-border); color: var(--text-muted); }
+        .footer { 
+            text-align: center; padding: 60px 0; 
+            border-top: 1px solid var(--glass-border); 
+            background: linear-gradient(to top, rgba(10,10,10,1), transparent);
+        }
+        .footer-contacts {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-contacts h4 { color: white; margin-bottom: 20px; font-size: 1.2rem; }
+        .phone-link { 
+            display: block; font-size: 1.5rem; color: white; margin-bottom: 25px; 
+            text-decoration: none; transition: 0.3s; font-family: var(--font-head);
+        }
+        .phone-link:hover { color: var(--purple-primary); text-shadow: 0 0 10px rgba(140,100,255,0.5); }
         
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -677,7 +704,20 @@
         <div class="container">
             <h3>ГОТОВЫ К БУДУЩЕМУ?</h3>
             <button class="btn-glow open-modal-btn" style="margin-top: 20px;">СВЯЗАТЬСЯ С НАМИ</button>
-            <p style="margin-top: 30px;">AI CREATIVE STUDIO © 2026</p>
+            
+            <div class="footer-contacts">
+                <h4>КОНТАКТЫ</h4>
+                <a href="tel:+77075016333" class="phone-link">8707 50 16 333</a>
+                
+                <a href="https://t.me/dmitriyostrovskiy1987" target="_blank" class="btn-glow btn-telegram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.657 8.397C17.482 10.315 16.712 14.869 16.321 16.96C16.156 17.846 15.829 18.143 15.513 18.171C14.826 18.232 14.304 17.717 13.639 17.28C12.597 16.596 12.008 16.17 10.998 15.503C9.831 14.734 10.587 14.311 11.252 13.62C11.426 13.439 14.437 10.697 14.495 10.449C14.503 10.418 14.51 10.302 14.441 10.241C14.373 10.18 14.272 10.201 14.199 10.217C14.095 10.24 12.445 11.332 9.25 13.49C8.781 13.811 8.357 13.968 7.976 13.959C7.556 13.95 6.749 13.722 6.149 13.527C5.413 13.287 4.827 13.161 4.878 12.754C4.904 12.542 5.196 12.325 5.753 12.102C8.384 10.875 10.138 10.115 11.015 9.821C13.518 8.981 14.038 8.835 14.377 8.835C14.452 8.835 14.619 8.853 14.727 8.941C14.818 9.015 14.843 9.138 14.847 9.224C14.847 9.224 14.852 9.309 14.848 9.351L17.657 8.397Z" fill="white"/>
+                    </svg>
+                    Написать нам
+                </a>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">AI CREATIVE STUDIO © 2026</p>
         </div>
     </footer>
 
@@ -722,8 +762,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // --- FIX FOR NAVIGATION ---
+            // Manual smooth scroll to fix potential anchor issues
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navMenu.classList.remove('active');
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80, // -80px for header offset
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
             hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navMenu.classList.remove('active')));
 
             const modal = document.getElementById('modal');
             const openBtns = document.querySelectorAll('.open-modal-btn');
@@ -745,7 +803,7 @@
                 document.body.style.overflow = '';
             }});
 
-            // Carousel
+            // Carousel Logic
             const track = document.getElementById('track');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
