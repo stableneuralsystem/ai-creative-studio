@@ -53,6 +53,8 @@
             position: fixed; top: 0; left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%; z-index: 9999; pointer-events: none;
+            /* Оптимизация: подсказка браузеру о смене координат */
+            will-change: left, top, transform;
         }
         .cursor-dot { width: 8px; height: 8px; background-color: white; }
         .cursor-outline {
@@ -82,56 +84,49 @@
             font-weight: 400;
         }
 
-        /* --- ОБНОВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКОВ РАЗДЕЛОВ (PULSATING PLASMA GLOW) --- */
+        /* --- ОБНОВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКОВ РАЗДЕЛОВ --- */
         h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 3rem; 
             text-align: center;
             padding: 0 10px;
-            
-            /* Базовый цвет (будет переопределяться анимацией) */
             color: #ffffff;
-            
-            /* Применение анимации пульсирующей плазмы */
             animation: plasmaPulse 4s infinite ease-in-out;
+            will-change: text-shadow, color; /* Оптимизация */
         }
 
-        /* Общая анимация пульсации плазмы (используется для H2, footer H3 и акцентных текстов) */
+        /* Общая анимация пульсации плазмы */
         @keyframes plasmaPulse {
             0%, 100% {
-                /* Спокойное состояние */
                 text-shadow: 
-                    0 0 5px rgba(140, 100, 255, 0.6), /* Фиолетовое ядро */
-                    0 0 15px rgba(140, 100, 255, 0.3); /* Мягкий ореол */
-                color: #e0e0ff; /* Слегка фиолетовый белый */
+                    0 0 5px rgba(140, 100, 255, 0.6), 
+                    0 0 15px rgba(140, 100, 255, 0.3); 
+                color: #e0e0ff; 
             }
             50% {
-                /* Пик энергии */
                 text-shadow: 
-                    0 0 5px rgba(255, 255, 255, 0.9),  /* Яркое белое ядро */
-                    0 0 20px rgba(140, 100, 255, 0.8), /* Сильный фиолетовый ореол */
-                    0 0 40px rgba(0, 194, 255, 0.5);   /* Широкая синяя аура */
-                color: #ffffff; /* Чистый белый */
+                    0 0 5px rgba(255, 255, 255, 0.9),  
+                    0 0 20px rgba(140, 100, 255, 0.8), 
+                    0 0 40px rgba(0, 194, 255, 0.5);   
+                color: #ffffff; 
             }
         }
 
-        /* --- НОВЫЙ КЛАСС ДЛЯ ВЫДЕЛЕННОГО ТЕКСТА (КРУПНЕЕ + СВЕЧЕНИЕ) --- */
+        /* --- НОВЫЙ КЛАСС ДЛЯ ВЫДЕЛЕННОГО ТЕКСТА --- */
         .glow-text-highlight {
-            font-size: clamp(1.15rem, 3vw, 1.4rem) !important; /* Увеличенный размер */
+            font-size: clamp(1.15rem, 3vw, 1.4rem) !important; 
             line-height: 1.6;
             font-weight: 400;
             margin-bottom: 20px;
-            /* Применяем ту же анимацию, что и в заголовках */
             animation: plasmaPulse 4s infinite ease-in-out;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* ИЗМЕНЕНО: Растягиваем контейнер шапки на 100% ширины экрана */
         .header .container {
             max-width: 100%; 
-            padding-left: 20px; /* Небольшой отступ слева */
-            padding-right: 20px; /* Небольшой отступ справа */
+            padding-left: 20px; 
+            padding-right: 20px; 
         }
 
         /* --- BUTTONS --- */
@@ -242,7 +237,6 @@
         }
         .hero-content { max-width: 900px; z-index: 2; width: 100%; }
         
-        /* ГЛАВНЫЙ ЗАГОЛОВОК H1 */
         .hero h1 {
             font-size: clamp(3rem, 10vw, 5rem);
             margin-bottom: 25px; 
@@ -252,6 +246,7 @@
             letter-spacing: 0.03em;
             color: #F0F0FF;
             animation: preservedZoom 6s infinite ease-in-out, electricBreath 5s infinite ease-in-out;
+            will-change: transform, text-shadow; /* Оптимизация */
             position: relative; z-index: 2;
         }
 
@@ -321,6 +316,7 @@
             transition: transform 0.4s ease;
             height: 100%; display: flex; flex-direction: column; justify-content: start;
             animation: breathingGlow 4s infinite ease-in-out;
+            will-change: box-shadow, border-color; /* Оптимизация */
         }
         .premium-card:hover { transform: translateY(-7px); border-color: var(--block-color, #8C64FF); }
 
@@ -393,14 +389,12 @@
             background: linear-gradient(to top, rgba(10,10,10,1), transparent);
         }
 
-        /* СТИЛЬ ДЛЯ ЗАГОЛОВКА ФУТЕРА (PULSATING PLASMA GLOW) */
         .footer h3 {
             color: #ffffff;
             font-size: clamp(1.2rem, 3vw, 1.6rem);
             max-width: 800px;
             margin: 0 auto 30px auto;
             line-height: 1.4;
-            /* Используем ту же анимацию, что и для H2 */
             animation: plasmaPulse 4s infinite ease-in-out;
         }
 
@@ -442,7 +436,7 @@
         }
         .close-modal:hover { background: var(--purple-primary); }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
             .cursor-dot, .cursor-outline { display: none; }
             * { cursor: auto; }
@@ -460,6 +454,11 @@
             }
             .logo-text { font-size: 1.1rem; margin-left: 10px; }
             .logo-img { height: 50px; }
+            
+            /* Снижение нагрузки анимаций на мобильных */
+            .premium-card, .highlight-card, h2, h3, .logo-text, .hero h1 {
+                animation-duration: 6s; /* Замедляем анимацию для снижения FPS нагрузки */
+            }
         }
     </style>
 </head>
@@ -473,7 +472,7 @@
     <header class="header">
         <div class="container nav-container">
             <a href="#" class="logo-wrapper">
-                <img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-ini8/nJTW6AXLWc329SUQTLsjBC/5348422005646101632_121.jpg?a=9rFNEDXCmMecAXmbFGkSgC" alt="AI CREATIVE STUDIO Logo" class="logo-img">
+                <img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-ini8/nJTW6AXLWc329SUQTLsjBC/5348422005646101632_121.jpg?a=9rFNEDXCmMecAXmbFGkSgC" alt="AI CREATIVE STUDIO Logo" class="logo-img" loading="lazy">
                 <span class="logo-text">AI CREATIVE STUDIO</span>
             </a>
             
@@ -548,7 +547,7 @@
             
             <div class="grid-2" style="margin-top: 40px;">
                 <div class="media-box">
-                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-s2ZS/mZmwzMNdhTccfJ3MXk7Qpe/generated_image_a0dd045b-9902-4b1f-800e-08d8b5c0be2a.png?a=2bFXn4UifWgpPwaEcD8neK" alt="AI Video Art">
+                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-s2ZS/mZmwzMNdhTccfJ3MXk7Qpe/generated_image_a0dd045b-9902-4b1f-800e-08d8b5c0be2a.png?a=2bFXn4UifWgpPwaEcD8neK" alt="AI Video Art" loading="lazy">
                 </div>
                 <div>
                     <h3 style="margin-bottom: 10px; color: white; display:flex; align-items:center;">
@@ -556,7 +555,7 @@
                         Пример видео
                     </h3>
                     <div class="media-box video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1IkE_xSs4HJyKseR1KXnuUzM9_G_EDpCI/preview" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1IkE_xSs4HJyKseR1KXnuUzM9_G_EDpCI/preview" frameborder="0" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -621,10 +620,10 @@
                     <button class="carousel-btn prev" id="prevBtn">❮</button>
                     <button class="carousel-btn next" id="nextBtn">❯</button>
                     <div class="carousel-track" id="track">
-                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-mRLm/5tJpSVMEY5XeKTisiJyKjc/bb595eb7-7fd9-439c-8871-2d784fc0dda6.png?a=jguueSzWRjvPtJSY1PpJhy" alt="Art 1"></div>
-                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-jXZA/kxRtkxYCBbpz5LEY3cfi3D/5323288763264266566_121.jpg?a=sn2EywxAou58iSABLtjFV6" alt="Art 2"></div>
-                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-fxf4/4E5auUDGo45uaYyZJUgFnN/5390903694670823298_121.jpg?a=r7o9dNFSCTL5zTLUbeBwxC" alt="Art 3"></div>
-                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-2X6m/6LMwZ1CvPgQm9HK6M8jMSF/5390903694670823227_121.jpg?a=7tVHZvd5N7NevRk1dd5Cni" alt="Art 4"></div>
+                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-mRLm/5tJpSVMEY5XeKTisiJyKjc/bb595eb7-7fd9-439c-8871-2d784fc0dda6.png?a=jguueSzWRjvPtJSY1PpJhy" alt="Art 1" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-jXZA/kxRtkxYCBbpz5LEY3cfi3D/5323288763264266566_121.jpg?a=sn2EywxAou58iSABLtjFV6" alt="Art 2" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-fxf4/4E5auUDGo45uaYyZJUgFnN/5390903694670823298_121.jpg?a=r7o9dNFSCTL5zTLUbeBwxC" alt="Art 3" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.fillout.com/orgid-335165/flowpublicid-2evvAH24Awus/widgetid-2X6m/6LMwZ1CvPgQm9HK6M8jMSF/5390903694670823227_121.jpg?a=7tVHZvd5N7NevRk1dd5Cni" alt="Art 4" loading="lazy"></div>
                     </div>
                 </div>
                 <div style="padding: 20px;">
@@ -682,7 +681,7 @@
 
             <div class="grid-2" style="margin-top: 40px; align-items: center;">
                 <div class="media-box">
-                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-qtjC/i9EEx5G6SLaBPzavymG9fi/d211d5d5-29c0-4021-bd6c-127208816e5e.png?a=xogygmKuSwbo2KiKC7iSXm" alt="Интерактивная Визитка">
+                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-qtjC/i9EEx5G6SLaBPzavymG9fi/d211d5d5-29c0-4021-bd6c-127208816e5e.png?a=xogygmKuSwbo2KiKC7iSXm" alt="Интерактивная Визитка" loading="lazy">
                 </div>
                 <div style="padding: 20px;">
                     <h3 style="color: white; margin-bottom: 20px;">Работает 24/7</h3>
@@ -742,7 +741,7 @@
 
             <div class="grid-2" style="margin-top: 40px; align-items: center;">
                  <div class="media-box">
-                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-eLRZ/iS4mv6SPoeXDgVVnutV4MJ/58cb8c37-4e2c-47ef-bc49-aba0a0dcd6e9.png?a=rzkgjHzurK5kmpgQhRzEPM" alt="Telegram Bot">
+                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-eLRZ/iS4mv6SPoeXDgVVnutV4MJ/58cb8c37-4e2c-47ef-bc49-aba0a0dcd6e9.png?a=rzkgjHzurK5kmpgQhRzEPM" alt="Telegram Bot" loading="lazy">
                  </div>
                  <div style="padding: 20px;">
                     <h3 style="color: white; margin-bottom: 20px;">Единая Экосистема</h3>
@@ -842,7 +841,7 @@
                 </div>
 
                 <div class="media-box" style="margin-top: 0; height: 100%;">
-                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-dBjQ/u6SmnQWu3UuZD2oGxjbYYa/generated_image_6b7ccad7-d5ce-42cd-9668-1e60a29717b1_cleanup.png?a=8XWwq8Eoc16GAknkfm9Cd6" alt="Landing Page Example" style="height: 100%; object-fit: cover;">
+                    <img src="https://images.fillout.com/orgid-335165/flowpublicid-cNyow7XQUBus/widgetid-dBjQ/u6SmnQWu3UuZD2oGxjbYYa/generated_image_6b7ccad7-d5ce-42cd-9668-1e60a29717b1_cleanup.png?a=8XWwq8Eoc16GAknkfm9Cd6" alt="Landing Page Example" style="height: 100%; object-fit: cover;" loading="lazy">
                 </div>
 
             </div>
@@ -889,9 +888,14 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Определение мобильного устройства по ширине экрана
+        const isMobile = window.innerWidth < 900;
+
+        // Конфигурация частиц с учетом мобильных устройств
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                // Если мобильный - ставим 20 частиц, если нет - 60
+                "number": { "value": isMobile ? 20 : 60, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#8C64FF" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.5 },
@@ -901,18 +905,25 @@
             },
             "interactivity": {
                 "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }
+                "events": { 
+                    // Отключаем взаимодействие с мышью на мобильных для экономии ресурсов
+                    "onhover": { "enable": !isMobile, "mode": "grab" }, 
+                    "onclick": { "enable": !isMobile, "mode": "push" } 
+                }
             },
             "retina_detect": true
         });
 
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-        window.addEventListener('mousemove', function(e) {
-            const posX = e.clientX; const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-        });
+        // Курсор (JS-логика) запускается ТОЛЬКО на десктопе
+        if (!isMobile) {
+            const cursorDot = document.querySelector('[data-cursor-dot]');
+            const cursorOutline = document.querySelector('[data-cursor-outline]');
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX; const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+                cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const hamburger = document.getElementById('hamburger');
